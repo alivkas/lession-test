@@ -1,7 +1,6 @@
 package example.note;
 
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -9,18 +8,11 @@ import org.junit.jupiter.api.Test;
  */
 public class NoteLogicTest {
 
-    private NoteLogic noteLogic;
+    private final NoteLogic noteLogic = new NoteLogic();
 
     /**
-     * Проинициализировать объекты для тестов
-     */
-    @BeforeEach
-    public void setUp() {
-        noteLogic = new NoteLogic();
-    }
-
-    /**
-     * Тестировать добавление заметок в хранилище и их просмотр
+     * Тестировать добавление заметок в хранилище и
+     * их просмотр командами /note и /add
      */
     @Test
     public void testHandleAllCommands() {
@@ -30,32 +22,36 @@ public class NoteLogicTest {
     }
 
     /**
-     * Тестировать изменение заметки
+     * Тестировать изменение заметки командой /edit
      */
     @Test
     public void testHandleEdit() {
+        noteLogic.handleMessage("/add New note");
         String response = noteLogic.handleMessage("/edit New note | Old note");
         Assertions.assertEquals("Note edited!", response);
         Assertions.assertEquals("Your notes:\nOld note", noteLogic.handleMessage("/notes"));
     }
 
     /**
-     * Тестировать удаление заметки из хранилища
+     * Тестировать удаление заметки командой /del
      */
     @Test
     public void testHandleDel() {
-        String response = noteLogic.handleMessage("/del Old note");
+        noteLogic.handleMessage("/add note1");
+        noteLogic.handleMessage("/add note2");
+
+        String response = noteLogic.handleMessage("/del note1");
         Assertions.assertEquals("Note deleted!", response);
-        Assertions.assertEquals("Your notes:\n", noteLogic.handleMessage("/notes"));
+        Assertions.assertEquals("Your notes:\nnote2", noteLogic.handleMessage("/notes"));
     }
 
     /**
-     * Тестировать неправильно введенную команду
+     * Тестировать получение ошибки при введении неправильной команды
      */
     @Test
-    public void testHandleUnknownCommand() {
-        Assertions.assertThrows(RuntimeException.class, () -> {
-            noteLogic.handleMessage("/random");
-        });
+    public void testIllegalArgumentException() {
+        IllegalArgumentException exception = Assertions.assertThrows(
+                IllegalArgumentException.class, () -> noteLogic.handleMessage("/random"));
+        Assertions.assertEquals("Неверная команда", exception.getMessage());
     }
 }
