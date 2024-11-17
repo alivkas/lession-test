@@ -25,7 +25,7 @@ class BotLogicTest {
         Assertions.assertEquals("Сколько будет 2 + 2 * 2", bot.getMessages().get(2));
         botLogic.processCommand(user, "6");
         Assertions.assertEquals("Правильный ответ!", bot.getMessages().get(3));
-        Assertions.assertEquals("Тест завершен", bot.getLastMessage());
+        Assertions.assertEquals("Тест завершен", bot.getMessages().get(4));
     }
 
     /**

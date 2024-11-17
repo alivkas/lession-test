@@ -22,12 +22,4 @@ public class FakeBot implements Bot {
     public List<String> getMessages() {
         return messages;
     }
-
-    /**
-     * Получить последнее сообщение
-     * @return последнее сообщение из списка
-     */
-    public String getLastMessage() {
-        return messages.getLast();
-    }
 }
