@@ -76,7 +76,9 @@ class BotLogicTest {
         BotLogic botLogic = new BotLogic(bot);
 
         botLogic.processCommand(user, "/test");
+        Assertions.assertEquals("Вычислите степень: 10^2", bot.getMessages().get(0));
         botLogic.processCommand(user, "1");
+        Assertions.assertEquals("Сколько будет 2 + 2 * 2", bot.getMessages().get(2));
         botLogic.processCommand(user, "2");
 
         botLogic.processCommand(user, "/repeat");
@@ -93,5 +95,8 @@ class BotLogicTest {
         botLogic.processCommand(user, "100");
         Assertions.assertEquals("Правильный ответ!", bot.getMessages().get(11));
         Assertions.assertEquals("Тест завершен", bot.getMessages().get(12));
+
+        botLogic.processCommand(user, "/repeat");
+        Assertions.assertEquals("Нет вопросов для повторения", bot.getMessages().get(13));
     }
 }
