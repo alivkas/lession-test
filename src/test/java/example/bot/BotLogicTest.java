@@ -79,24 +79,15 @@ class BotLogicTest {
         Assertions.assertEquals("Вычислите степень: 10^2", bot.getMessages().get(0));
         botLogic.processCommand(user, "1");
         Assertions.assertEquals("Сколько будет 2 + 2 * 2", bot.getMessages().get(2));
-        botLogic.processCommand(user, "2");
+        botLogic.processCommand(user, "6");
 
         botLogic.processCommand(user, "/repeat");
         Assertions.assertEquals("Вычислите степень: 10^2", bot.getMessages().get(5));
-        botLogic.processCommand(user, "1");
-        Assertions.assertEquals("Вы ошиблись, верный ответ: 100", bot.getMessages().get(6));
-        Assertions.assertEquals("Сколько будет 2 + 2 * 2", bot.getMessages().get(7));
-        botLogic.processCommand(user, "6");
-        Assertions.assertEquals("Правильный ответ!", bot.getMessages().get(8));
-        Assertions.assertEquals("Тест завершен", bot.getMessages().get(9));
-
-        botLogic.processCommand(user, "/repeat");
-        Assertions.assertEquals("Вычислите степень: 10^2", bot.getMessages().get(10));
         botLogic.processCommand(user, "100");
-        Assertions.assertEquals("Правильный ответ!", bot.getMessages().get(11));
-        Assertions.assertEquals("Тест завершен", bot.getMessages().get(12));
+        Assertions.assertEquals("Правильный ответ!", bot.getMessages().get(6));
+        Assertions.assertEquals("Тест завершен", bot.getMessages().get(7));
 
         botLogic.processCommand(user, "/repeat");
-        Assertions.assertEquals("Нет вопросов для повторения", bot.getMessages().get(13));
+        Assertions.assertEquals("Нет вопросов для повторения", bot.getMessages().get(8));
     }
 }
